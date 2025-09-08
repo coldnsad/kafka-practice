@@ -1,0 +1,4 @@
+- docker compose up -d - запуск контейнеры для работы с кафкой
+- docker ps - просмотр запущенных контейнеров
+- echo "Message" | docker exec -i <container-id> kafka-console-producer.sh --broker-list localhost:9092 --topic user-events - отправка сообщений в кафку для топика user-events(можно проверить работоспособность кафки)
+- docker exec -it <container-id> kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic user-events --from-beginning - прослушать сообщения из топика user-events
