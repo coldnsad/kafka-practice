@@ -3,19 +3,25 @@ spring:
     name: "kafka-practice"
 
   kafka:
+    #Addresses of brokers
     bootstrap-servers: localhost:9092
+    #Serializer properties
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      # ???????? ????????: ????? ????????????? ?? ???? ??????
       properties:
+        #All replicas must acknowledge, max stability
         acks: all
+        #Amount of tries of message sending to leader
         retries: 3
 
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
+        #Restrict packages while deserialization
         spring.json.trusted.packages: "org.example.kafkapractice.message"
+        #Consumer-group is used for scalability and rebalancing in case of consumer/broker crash
       group-id: user-events-group
+      #Reading messages starts from the elder message in partition
       auto-offset-reset: earliest
